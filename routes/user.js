@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const User = require("../models/User");
+const pool = require('../lib/db.js');
+const bcrypt = require('bcrypt');
 const router = new Router();
 
 router.get("/users", (req, res) => {
@@ -44,5 +46,11 @@ router.delete("/users/:id", (req, res) => {
     else res.sendStatus(204);
   });
 });
+
+router.post('/register', async function(req,res){
+    User.create(req.body).then((user) => {
+      res.status(201).json(user);
+    });
+  });
 
 module.exports = router;

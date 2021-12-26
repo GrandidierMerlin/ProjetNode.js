@@ -4,26 +4,42 @@ GET http://localhost:3000/users
 GET http://localhost:3000/posts
 
 ###
-GET http://localhost:3000/users/2
+GET http://localhost:3000/users/20
 
 ###
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/users/5
 
 ###
-POST http://localhost:3000/users
+// CREATE AN USER
+POST http://localhost:3000/users/
 Content-Type: application/json
 
 {
+  "firstname": "John",
   "lastname": "Doe",
-  "email": "test3@test.com"
+  "email": "test3@test.com",
+  "password": "2pass"
 }
 
 
 ###
-PUT http://localhost:3000/users/1
+// CHANGING
+PUT http://localhost:3000/users/20
 Content-Type: application/json
 
 {
   "lastname": "Do",
-  "email": "test@test.com"
+  "email": "test@test.com",
+  "password": "lenouwo"
+}
+
+###
+POST http://localhost:3000/register/
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "test3@test.com",
+  "password": "2pass"
 }

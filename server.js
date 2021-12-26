@@ -1,10 +1,10 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const UserRouter = require("./routes/user");
 const PostRouter = require("./routes/post");
-//const generateRoutes = require("./routes/genericRouter");
-
+const generateRoutes = require("./routes/genericRouter");
 /**
  * /users : Operations de collection sur des Users
  * /users/:id : Operations d'item User
@@ -36,15 +36,15 @@ const PostRouter = require("./routes/post");
  *    404 : Not Found
  */
 
-//const Post = require("./models/Post");
-//const User = require("./models/User");
+const Post = require("./models/Post");
+const User = require("./models/User");
 
 app.use(express.json());
 app.use(UserRouter);
 app.use(PostRouter);
 
-//app.use(generateRoutes(User));
-//app.use(generateRoutes(Post));
+app.use(generateRoutes(User));
+app.use(generateRoutes(Post));
 
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);

@@ -53,4 +53,11 @@ router.delete("/posts/:id", (req, res) => {
   });
 });
 
+router.post("/register", (req, res) => {
+  Post.create(req.body).then((user) => {
+    res.status(201).json(user);
+  });
+});
+
+
 module.exports = router;
