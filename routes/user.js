@@ -3,15 +3,16 @@ const User = require("../models/User");
 const pool = require('../lib/db.js');
 const bcrypt = require('bcrypt');
 const router = new Router();
-
 router.get("/users", (req, res) => {
   const criteria = req.query;
   User.findAll({
+    attributes: ['id', 'firstname','lastname', 'email', 'createdAt', 'updatedAt','isAdmin'],
     where: criteria,
   }).then((users) => {
     res.json(users);
   });
 });
+
 
 router.post("/users", (req, res) => {
   User.create(req.body).then((user) => {
@@ -21,9 +22,12 @@ router.post("/users", (req, res) => {
 
 router.get("/users/:id", (req, res) => {
   const id = req.params.id;
-  User.findByPk(id).then((user) => {
+  User.findByPk(id,{
+    attributes: ['id', 'firstname','lastname', 'email', 'createdAt', 'updatedAt','isAdmin'],
+  }).then((user) => {
     if (!user) res.sendStatus(404);
     else res.json(user);
+    
   });
 });
 
@@ -47,10 +51,10 @@ router.delete("/users/:id", (req, res) => {
   });
 });
 
-router.post('/register', async function(req,res){
-    User.create(req.body).then((user) => {
-      res.status(201).json(user);
-    });
+router.post('/register', async function (req, res) {
+  User.create(req.body).then((user) => {
+    res.status(201).json(user);
   });
+});
 
 module.exports = router;
