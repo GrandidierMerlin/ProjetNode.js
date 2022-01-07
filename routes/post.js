@@ -33,7 +33,7 @@ router.get("/posts/:id", (req, res) => {
   });
 });
 
-router.put("/posts/:id", (req, res) => {
+router.put("/posts/:id", verifyJWT, (req, res) => {
   const id = req.params.id;
   Post.update(req.body, {
     where: { id: id },
