@@ -9,9 +9,8 @@ router.post("/login", (req, res) => {
   User.findOne({ where: { email: req.body.email } }).then((user) => {
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
-        res.json({
-          token: createToken(user),
-        });
+        const token = createToken(user);
+        res.header("autorisation",token).send({token});
       } else {
         res.status(400).json({
           password: "Invalid credentials",
