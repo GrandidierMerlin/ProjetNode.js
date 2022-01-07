@@ -31,7 +31,7 @@ router.get("/comments/:id", (req, res) => {
   });
 });
 
-router.put("/comments/:id", (req, res) => {
+router.put("/comments/:id", verifyJWT, (req, res) => {
   const id = req.params.id;
   Comments.update(req.body, {
     where: { id: id },
