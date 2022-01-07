@@ -31,7 +31,7 @@ router.get("/users/:id", (req, res) => {
   });
 });
 
-router.put("/users/:id", (req, res) => {
+router.put("/users/:id", verifyJWT, (req, res) => {
   const id = req.params.id;
   User.update(req.body, {
     where: { id: id },
