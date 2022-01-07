@@ -4,7 +4,7 @@ function generateRoutes(Model) {
   const baseRoute = "/" + Model.options.name.plural.toLowerCase();
   const router = new Router();
 
-  router.get(baseRoute + "", (req, res) => {
+  router.get(baseRoute + "", verifyJWT, verifyAdmin, verifyUSERS, (req, res) => {
     const criteria = req.query;
     Model.findAll({
       where: criteria,
@@ -13,13 +13,13 @@ function generateRoutes(Model) {
     });
   });
 
-  router.post(baseRoute + "", (req, res) => {
+  router.post(baseRoute + "", verifyJWT, verifyAdmin, verifyUSERS, (req, res) => {
     Model.create(req.body).then((user) => {
       res.status(201).json(user);
     });
   });
 
-  router.get(baseRoute + "/:id", (req, res) => {
+  router.get(baseRoute + "/:id", verifyJWT, verifyAdmin, verifyUSERS, (req, res) => {
     const id = req.params.id;
     Model.findByPk(id).then((user) => {
       if (!user) res.sendStatus(404);
@@ -27,7 +27,7 @@ function generateRoutes(Model) {
     });
   });
 
-  router.put(baseRoute + "/:id", (req, res) => {
+  router.put(baseRoute + "/:id", verifyJWT, verifyAdmin, verifyUSERS,(req, res) => {
     const id = req.params.id;
     Model.update(req.body, {
       where: { id: id },
@@ -37,7 +37,7 @@ function generateRoutes(Model) {
     });
   });
 
-  router.delete(baseRoute + "/:id", (req, res) => {
+  router.delete(baseRoute + "/:id", verifyJWT, verifyAdmin, verifyUSERS,(req, res) => {
     const id = req.params.id;
     Model.destroy({
       where: { id: id },
